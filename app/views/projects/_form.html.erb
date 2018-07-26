@@ -1,0 +1,19 @@
+<%= form_for(@project) do |f| %>
+<%= f.label :title %>
+<%= f.text_field :title %>
+<br>
+<%= f.label :description %>
+<%= f.text_field :description %>
+<br>
+<%= f.label :studio %>
+<%= f.text_field :studio %>
+<br>
+<%= f.fields_for :location do |t| %>
+  <%= t.label :production_company %>
+  <%= t.field_for :name %>
+<br>
+  <%= t.label :address %>
+  <%= t.text_field :address %>
+<% end %>
+<br>
+<% f.submit "Add Project" %>

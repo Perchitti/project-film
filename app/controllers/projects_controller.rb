@@ -27,7 +27,7 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :created, project: @project }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: 400 }
       end
     end
   end
@@ -61,6 +61,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :address)
+      params.require(:project).permit(:title, :location_id, :location_attributes => [:name, :address])
     end
 end
