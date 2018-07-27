@@ -8,6 +8,12 @@ def show
   @user = User.find(params[:id])
 end
 
+def projects
+  if current_user
+    @projects = current_user.projects
+end
+end
+
 def destroy
   @user.destroy
   respond_to do |format|

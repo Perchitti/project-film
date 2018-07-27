@@ -6,10 +6,14 @@ class ProjectsController < ApplicationController
   end
 
   def show
+  respond_to do |format|
+    format.html { render :show }
+    format.json { render json: @project }
   end
-
+end
 
   def new
+  #  binding.pry
     @project = Project.new
   end
 
@@ -17,20 +21,18 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+  def project_data
+  @project = Project.find(params[:id])
+  render json: @project
+end
+
+
+
 
   def create
-    @project = Project.new(project_params)
-
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, project: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: 400 }
-      end
-    end
-  end
+    @project = current_user.projects.new(project_params)
+    render json: @project, status: 201
+end
 
   def update
     respond_to do |format|
@@ -61,6 +63,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:title, :location_id, :location_attributes => [:name, :address])
+      params.require(:project).permit(:title, :studio, :description, :location_id, :location_attributes => [:name, :address])
     end
 end

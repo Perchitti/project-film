@@ -1,7 +1,7 @@
 PROJECT #INDEX PAGE
 
 <% @projects.each do |project| %>
-<%= link_to project.title, project_path(project) %>
+<%= render partial: "project", locals: {post: project} %>
 <% end %>
 
 Add a "more" button to this page to expand info

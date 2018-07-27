@@ -1,4 +1,60 @@
-Projects #NEW page
+<%= form_for(@project) do |f| %>
+<div class="field">
+<%= f.label :title %>
+<%= f.text_field :title %>
+</div>
+<br>
+<div class="field">
+<%= f.label :description %>
+<%= f.text_field :description %>
+</div>
+<br>
+<div class="field">
+<%= f.label :studio %>
+<%= f.text_field :studio %>
+</div>
+<br>
+<div class="field">
+<%= f.fields_for :location_attributes do |t| %>
+  <%= t.label :production_company %>
+  <%= t.text_field :name %>
+  </div>
+<br>
+<div class="field">
+  <%= t.label :address %>
+  <%= t.text_field :address %>
+  </div>
+<% end %>
+  <div class="actions">
+<%= f.submit "Add Project" %>
+</div>
 
-<h1> Create a Project </h1>
-<%= render partial: "form" %>
+<% end %>
+
+<div id="projectResult">
+  <h2 id="projectTitle"></h2>
+    <p id="projectDescription"></p>
+    <p id="projectStudio"></p>
+      <p id="locationProduction"></p>
+      <p id= "locationAddress"></p>
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+  $(function () {
+    $('form').submit(function(event) {
+      //prevent form from submitting the default way
+      event.preventDefault();
+
+      var values = $(this).serialize();
+
+      var posting = $.post('/projects', values);
+
+      posting.done(function(data) {
+        var project = data;
+        $("#projectTitle").text(project["title"]);
+        $("#projectDescription").text(project["description"]);
+        $("#projectStudio").text(project["studio"]);
+      });
+    });
+  });
+</script>

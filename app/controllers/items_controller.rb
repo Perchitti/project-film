@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @project = Project.find(params[:project_id])
+    @item = Item.find(params[:item_id])
     @item = current_user.items.new(item_params)
     @item.project = @project
     respond_to do |format|
@@ -70,6 +70,6 @@ class ItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.fetch(:item).permit(:department)
+      params.fetch(:item).permit(:content)
     end
 end

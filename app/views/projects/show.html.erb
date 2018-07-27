@@ -1,11 +1,25 @@
 PROJECTS #SHOW PAGE
 
-<h5> Title: <%= @project.title %></h5>
-<br>
-<p> Description: <%= @project.description %></p>
-<br>
-<p> Studio: <%= @project.studio %></p>
-<br>
-<p> Production Company: <%=@location.name %></p>
-<br>
-<p> Address: <%= @location.address %></p>
+<p href="#" class="js-next" data-id="<%=@project.id%>">Next Project</a>
+<h1 class="projectTitle"><%= @project.title %></h1>
+<p class="projectDescription"><%= @project.description %></p>
+<p class="projectStudio"><%= @project.studio %></p>
+
+
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  $(".js-next").on("click", function(event) {
+    event.preventDefault()
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/projects/" + nextId + ".json", function(data) {
+      var project = data;
+      $(".projectTitle").text(project["title"]);
+      $(".projectDescription").text(project["description"]);
+      $(".projectStudio").text(project["studio"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", project["id"]);
+    });
+  });
+});
+</script>

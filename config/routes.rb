@@ -9,13 +9,14 @@ Rails.application.routes.draw do
   #  resources :sessions, only: [:create, :destroy]
   #end
 
-  post '/users/auth/facebook', to: 'projects#create'
-
+  #post '/users/auth/facebook', to: 'projects#create'
+resources :users, only: [:show] do
+  resources :projects, to: 'users#projects'
+end
   resources :projects do
     resources :locations
-      resources :items
 end
-
+resources :items
   #devise_scope :user do
   #  delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   #end

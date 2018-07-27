@@ -1,20 +1,32 @@
 <%= form_for(@project) do |f| %>
+<div class="field">
 <%= f.label :title %>
 <%= f.text_field :title %>
+</div>
 <br>
+<div class="field">
 <%= f.label :description %>
 <%= f.text_field :description %>
+</div>
 <br>
+<div class="field">
 <%= f.label :studio %>
 <%= f.text_field :studio %>
+</div>
 <br>
-<%= f.fields_for :location do |t| %>
+<div class="field">
+<%= f.fields_for :location_attributes do |t| %>
   <%= t.label :production_company %>
-  <%= t.field_for :name %>
+  <%= t.text_field :name %>
+  </div>
 <br>
+<div class="field">
   <%= t.label :address %>
   <%= t.text_field :address %>
+  </div>
 <% end %>
+  <div class="actions">
 <%= f.submit "Add Project" %>
+</div>
 
 <% end %>

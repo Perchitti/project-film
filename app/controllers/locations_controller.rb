@@ -6,6 +6,7 @@ class LocationsController < ApplicationController
   end
 
   def show
+    render json: @location, status: 200
   end
 
 
@@ -20,15 +21,10 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(location_params)
-
-    respond_to do |format|
       if @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render :show, status: :created, location: @location }
+        redirect_to location_path(@location)
       else
-        format.html { render :new }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
+        render :new
     end
   end
 
