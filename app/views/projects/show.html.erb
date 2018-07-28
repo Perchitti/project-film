@@ -1,25 +1,31 @@
 PROJECTS #SHOW PAGE
+<div class="container">
 
-<p href="#" class="js-next" data-id="<%=@project.id%>">Next Project</a>
-<h1 class="projectTitle"><%= @project.title %></h1>
-<p class="projectDescription"><%= @project.  %></p>
-<p class="projectStudio"><%= @project.studio %></p>
+    <p>Title: <span class="projectTitle"><%=@project.title%></span></p>
+    <p>Description: <span class="projectDescription"><%= @project.description %></span></p>
+    <p>Location: <span class="projectStudio"><%=@project.studio%></span></p>
+    <p>Production Company: <span class="locationName"><%=@project.location.name%></span></p>
+    <p>Address: <span class="locationAddress"><%=@project.location.address%></span></p>
 
 
+    <% if current_user %>
+          <h4>Add a equipment:</h4>
+            <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
+              <p>Equipment: <%= f.text_area :content %></p> <br>
+              <p>Department: <%= f.text_area :department %> </p>
+              <button type="submit">Add Equipment</button>
+            <% end %><br>
+        <% else %>
+        <p>Please log in order to add equipment to this project.</p>
+    <% end %>
+    <h4>Equipment:</h4>
+    <div id="submitted-equipment">
+      <% @project.items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <strong class="itemUserName"><%= item.user.name %></strong> added: <span class="itemContent"><%= item.content %></span>
+      </div>
+      <% end %>
+    </div>
 
-<script type="text/javascript" charset="utf-8">
-$(function () {
-  $(".js-next").on("click", function(event) {
-    event.preventDefault()
-    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-    $.get("/projects/" + nextId + ".json", function(data) {
-      var project = data;
-      $(".projectTitle").text(project["title"]);
-      $(".projectDescription").text(project["description"]);
-      $(".projectStudio").text(project["studio"]);
-      // re-set the id to current on the link
-      $(".js-next").attr("data-id", project["id"]);
-    });
-  });
-});
-</script>
+ <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
+</div>

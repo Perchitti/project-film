@@ -24,17 +24,13 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.find(params[:item_id])
+    @project = Project.find(params[:project_id])
     @item = current_user.items.new(item_params)
     @item.project = @project
-    respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @item }
+        render json: @item, status: 201
       else
-        format.html { render :new }
-        format.json { render json: @item.errors, status: 400 }
-      end
+        render json: @item.errors, status: 400
     end
   end
 

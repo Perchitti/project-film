@@ -3,9 +3,17 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @projects}
   end
+end
 
   def show
+    @location = @project.location
+    if current_user
+      @item = current_user.items.build(project: @project)
+    end
   respond_to do |format|
     format.html { render :show }
     format.json { render json: @project }
@@ -14,7 +22,7 @@ end
 
   def new
   #  binding.pry
-    @project = Project.new
+  @project ||= Project.new
   end
 
 
@@ -31,7 +39,11 @@ end
 
   def create
     @project = current_user.projects.new(project_params)
-    render json: @project, status: 201
+    if @project.save
+      redirect_to project_path(@project)
+    else
+      redirect_to new_project_path, alert: "Must add title"
+end
 end
 
   def update

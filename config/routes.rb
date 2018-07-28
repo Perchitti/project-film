@@ -15,8 +15,9 @@ resources :users, only: [:show] do
 end
   resources :projects do
     resources :locations
+    resources :items
 end
-resources :items
+
   #devise_scope :user do
   #  delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   #end
