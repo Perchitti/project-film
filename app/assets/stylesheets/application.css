@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+
+ div.right {
+     position: absolute;
+     top: 65px;
+     bottom: 0;
+     right: 0;
+     width: 97%;
+ }

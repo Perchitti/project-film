@@ -15,3 +15,18 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+
+
+$(document).ready(function() {
+  $('[data-js-hide-link]').click(function(event){
+    $(this).parents('li').hide();
+    event.preventDefault();
+  });
+}
+
+$("#example-basic").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    autoFocus: true
+});

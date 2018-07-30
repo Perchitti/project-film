@@ -1,7 +1,12 @@
 PROJECT #INDEX PAGE
-
+<div class="container">
+  <div class="right">
 <% @projects.each do |project| %>
-<%= render partial: "project", locals: {post: project} %>
+  <li><%= link_to project.title, project_path(project) %>
+  <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li>
+  <br>
 <% end %>
 
-Add a "more" button to this page to expand info
+<%= link_to "All Projects", projects_path %>
+</div>
+</div>
