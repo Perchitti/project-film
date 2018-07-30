@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update]
 
   # GET /items
   # GET /items.json
@@ -27,10 +27,14 @@ class ItemsController < ApplicationController
     @project = Project.find(params[:project_id])
     @item = current_user.items.new(item_params)
     @item.project = @project
+    respond_to do |format|
       if @item.save
-        render json: @item, status: 201
+        format.html { redirect_to @project, notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: @project }
       else
-        render json: @item.errors, status: 400
+        format.html { render :edit }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -51,9 +55,11 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @item.destroy
+    @project = Project.find(params[:project_id])
+    @item = current_user.items
+    @project.items.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to @project, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

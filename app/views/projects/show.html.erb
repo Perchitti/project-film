@@ -1,31 +1,55 @@
-PROJECTS #SHOW PAGE
-<div class="container">
+<div class="right">
 
+<!--<a href="#" class="js-next" data-id="<%=@project.id%>">Next...</a> -->
     <p>Title: <span class="projectTitle"><%=@project.title%></span></p>
     <p>Description: <span class="projectDescription"><%= @project.description %></span></p>
     <p>Location: <span class="projectStudio"><%=@project.studio%></span></p>
     <p>Production Company: <span class="locationName"><%=@project.location.name%></span></p>
     <p>Address: <span class="locationAddress"><%=@project.location.address%></span></p>
 
+  <!--  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      $(".js-next").on("click", function(event) {
+        event.preventDefault();
+        var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+        $.get("/projects/" + nextId + ".json", function(data) {
+          $(".projectTitle").text(data["title"]);
+          $(".projectDescription").text(data["description"]);
+          $(".projectStudio").text(data["studio"]);
+          $(".locationName").text(data["location"]["name"]);
+          $(".locationAddress").text(data["location"]["address"]);
+          // re-set the id to current on the link
+          $(".js-next").attr("data-id", data["id"]);
+        });
+      });
+    });
+  </script> -->
 
+<p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
+<br>
     <% if current_user %>
-          <h4>Add a equipment:</h4>
-            <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
-              <p>Equipment: <%= f.text_area :content %></p> <br>
-              <p>Department: <%= f.text_area :department %> </p>
-              <button type="submit">Add Equipment</button>
-            <% end %><br>
-        <% else %>
-        <p>Please log in order to add equipment to this project.</p>
+      <p><strong>Necessary Equipment:</strong></p>
+        <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
+          <p><%= f.text_area :content %></p>
+          <%= f.hidden_field :id %>
+          <!-- <%= f.submit "Create Comment", class: "btn btn-sm btn-primary" %> -->
+          <button type="submit">Add Equipment</button>
+        <% end %><br>
+    <% else %>
+      <p>Please log in order to add equipment to this project.</p>
     <% end %>
-    <h4>Equipment:</h4>
-    <div id="submitted-equipment">
+    <h5><strong>Equipment:</strong></h5>
       <% @project.items.each do |item| %>
-      <div id="item-<%= item.id %>">
-        <strong class="itemUserName"><%= item.user.name %></strong> added: <span class="itemContent"><%= item.content %></span>
-      </div>
-      <% end %>
-    </div>
+      <li><%= link_to item.content, project_items_path(@project, @item) %>
+      <%= button_to 'Delete', project_item_path(@project), method: :delete, data: { confirm: "Are you sure?"} %></li>
+      <br>
+    <% end %>
 
- <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
+
+<br>
+
+ <!-- <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
+</div> -->
+
+<%= link_to "All Projects", projects_path %>
 </div>
