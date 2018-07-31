@@ -1,4 +1,48 @@
+<div class="container">
+  <div class="center">
+
+    <a href="#" class="js-next" data-id="<%=@item.id%>">Next...</a>
+        <p>Equipment: <span class="itemContent"><%=@item.content%></span></p>
+      <p>  Make: <span class="itemMake"><%=@item.make%></span></p>
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+
+<% if current_user %>
+  <p><strong>Necessary Equipment:</strong></p>
+    <%= form_for @item, url: project_item_path(@project, @item)  do |f| %>
+
+      <p><%= f.text_field :content %></p>
+        <p><%= f.text_area :make %></p>
+          <p><%= f.text_area :model %></p>
+      <button type="update">Add Details To Equipment</button>
+    <% end %><br>
+<% else %>
+  <p>Please log in order to add equipment to this project.</p>
+<% end %>
+
+
+
+
+
+
+<%= link_to 'Delete', project_item_path, method: :delete, data: { confirm: "Are you sure?"} %></li>
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $(".js-next").on("click", function(event) {
+      event.preventDefault();
+      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+      $.get("/projects/" + id + "/items/" + nextId + ".json", function(data) {
+        $(".itemContent").text(data["content"]);
+        // re-set the id to current on the link
+        $(".js-next").attr("data-id", data["id"]);
+      });
+    });
+  });
+</script>
+<br>
+<%= link_to "All Projects", projects_path %>
+
+</div>
+</div>

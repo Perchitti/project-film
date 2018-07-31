@@ -10,11 +10,14 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    @project = Project.find(params[:project_id])
+    @item.project = @project
   end
 
   # GET /items/new
   def new
     @item = Item.new
+    @item.save
   end
 
   # GET /items/1/edit
@@ -29,7 +32,7 @@ class ItemsController < ApplicationController
     @item.project = @project
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @project, notice: 'Item was successfully updated.' }
+        format.html { redirect_to @project }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -43,7 +46,7 @@ class ItemsController < ApplicationController
   def update
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.html { redirect_to project_item_path, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -55,11 +58,10 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @project = Project.find(params[:project_id])
     @item = current_user.items
-    @project.items.destroy
+    @item.destroy
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to project_item_path, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
