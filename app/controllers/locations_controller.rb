@@ -6,8 +6,11 @@ class LocationsController < ApplicationController
   end
 
   def show
+    if current_user
+      @location = current_user.locations(location_params)
     render json: @location, status: 200
   end
+end
 
 
   def new
@@ -20,9 +23,11 @@ class LocationsController < ApplicationController
 
 
   def create
-    @location = Location.new(location_params)
+    @project = Project.find(params[:project_id])
+    @location = current_user.locations.new(location_params)
+    @location.project = @project
       if @location.save
-        redirect_to location_path(@location)
+        redirect_to project_locations_path(@location)
       else
         render :new
     end
