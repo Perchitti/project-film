@@ -21,30 +21,33 @@ end
 end
 
   def new
-  #  binding.pry
-  @project ||= Project.new
+    if current_user
+      @project ||= Project.new
+    else
+      redirect_to '/', notice: "You must be logged in."
   end
+end
 
 
   def edit
   end
 
   def project_data
-  @project = Project.find(params[:id])
-  render json: @project
-end
+    @project = Project.find(params[:id])
+    render json: @project
+  end
 
 
 
 
   def create
     @project = current_user.projects.new(project_params)
-    if @project.save
-      redirect_to project_path(@project)
-    else
-      redirect_to new_project_path, alert: "Must add title"
-end
-end
+      if @project.save
+        redirect_to project_path(@project)
+      else
+        redirect_to new_project_path, alert: "Must add title"
+      end
+    end
 
   def update
     respond_to do |format|
