@@ -1,12 +1,44 @@
 PROJECT #INDEX PAGE
 <div class="container">
   <div class="right">
+
+
+
 <% @projects.each do |project| %>
   <li><%= link_to project.title, project_path(project) %>
-  <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li>
+    <p><span class="projectStudio"><%= project.studio %></span><p>
+      <p><span class="locationName"></span></p>
+      <p><a href="#" class="js-more<% project.id %>" data-id="<%= project.id %>">More</a></p>
   <br>
 <% end %>
 
-<%= link_to "All Projects", projects_path %>
+<br>
+
+
+
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $(".js-more").each(function(num, el){
+
+    $(el).on("click", function(event) {
+      event.preventDefault();
+      var nextId = parseInt(el.attr("data-id"));
+      $.get("/projects/" + nextId + ".json", function(data) {
+        $(".locationName").text(data["location"]["name"]);
+        $(".locationAddress").text(data["location"]["address"]);
+      });
+        // re-set the id to current on the link
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+
 </div>
 </div>
