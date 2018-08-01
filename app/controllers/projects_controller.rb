@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
     @projects = Project.all
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @projects}
+      format.json { render json: @projects }
   end
 end
 

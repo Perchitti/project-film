@@ -44,9 +44,11 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1
   # PATCH/PUT /items/1.json
   def update
+    @project = Project.find(params[:project_id])
+    @item = current_user.items
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to project_item_path, notice: 'Item was successfully updated.' }
+        format.html { redirect_to @project, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
@@ -58,6 +60,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
+    @project = Project.find(params[:project_id])
     @item = current_user.items
     @item.destroy
     respond_to do |format|

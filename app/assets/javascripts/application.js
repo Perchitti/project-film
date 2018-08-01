@@ -30,3 +30,6 @@ $("#example-basic").steps({
     transitionEffect: "slideLeft",
     autoFocus: true
 });
+
+
+// hide more button once clicked on project/index page
