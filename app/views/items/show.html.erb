@@ -1,10 +1,10 @@
 <div class="container">
-  <div class="center">
+  <div class="right">
 
     <a href="#" class="js-next" data-id="<%=@item.id%>">Next...</a>
+    <br>
         <p>Equipment: <span class="itemContent"><%=@item.content%></span></p>
-      <p>  Make: <span class="itemMake"><%=@item.make%></span></p>
-<p id="notice"><%= notice %></p>
+<br>
 
 
 <% if current_user %>
@@ -12,8 +12,8 @@
     <%= form_for @item, url: project_item_path(@project, @item)  do |f| %>
 
       <p><%= f.text_field :content %></p>
-        <p><%= f.text_area :make %></p>
-          <p><%= f.text_area :model %></p>
+        <p>Make: <%= f.text_field :make %></p>
+          <p>Model: <%= f.text_field :model %></p>
       <button type="update">Add Details To Equipment</button>
     <% end %><br>
 <% else %>
@@ -25,24 +25,10 @@
 
 
 
-<%= link_to 'Delete', project_item_path, method: :delete, data: { confirm: "Are you sure?"} %></li>
+<%= link_to 'Delete', project_item_path(@item), method: :delete, data: { confirm: "Are you sure?"} %></li>
 
 
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    $(".js-next").on("click", function(event) {
-      event.preventDefault();
-      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-      $.get("/projects/" + id + "/items/" + nextId + ".json", function(data) {
-        $(".itemContent").text(data["content"]);
-        // re-set the id to current on the link
-        $(".js-next").attr("data-id", data["id"]);
-      });
-    });
-  });
-</script>
 <br>
-<%= link_to "All Projects", projects_path %>
 
 </div>
 </div>
