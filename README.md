@@ -1,24 +1,46 @@
-# README
+# Project Title
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ProjectBox - Rails App with a jQuery Front End Portfolio Project
 
-Things you may want to cover:
+## Getting Started
 
-* Ruby version
+ProjectBox is a storage site for artists to keep track of their equipment needed for projects in progress.
 
-* System dependencies
+### Prerequisites
 
-* Configuration
+Terminal must have Ruby and Bundlr installed.
 
-* Database creation
+### ProjectBox Instructions
 
-* Database initialization
+Clone this repo in your terminal: <br>
+cd into project-film directory  <br>
+Run bundle install to install gems <br>
+Run rake db:migrate <br>
+To start the server, run rails s <br>
+In your browser, go to https://localserver:3000
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## Built With
 
-* Deployment instructions
+* [Ruby on Rails](https://rubyonrails.org/)
 
-* ...
+* [Facebook Oauth](https://developers.facebook.com/docs/facebook-login/web/)
+
+
+## Versioning
+
+Version 1.0
+
+## Authors
+
+* **Lauren Perchitti** - *Initial work* - [Github](https://github.com/Perchitti)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
