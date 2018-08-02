@@ -22,14 +22,8 @@ $(document).ready(function() {
     $(this).parents('li').hide();
     event.preventDefault();
   });
-}
-
-$("#example-basic").steps({
-    headerTag: "h3",
-    bodyTag: "section",
-    transitionEffect: "slideLeft",
-    autoFocus: true
 });
+
 
 
 // hide more button once clicked on project/index page
