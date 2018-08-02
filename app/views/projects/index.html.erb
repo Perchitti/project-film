@@ -6,14 +6,11 @@ PROJECT #INDEX PAGE
 
     <% @projects.each do |project| %>
       <li><%= link_to project.title, project_path(project) %>
-        <p><%= project.studio %></span><p>
           <p><span class="locationName<%= project.id %>"></span></p>
-          <p><span class="locationAddress<%= project.id %>"></span></p>
-          <p><a href="#" class="js-more" data-id="<%= project.id %>">More</a></p>
-      <br>
+          <p><strong><span class="locationAddress<%= project.id %>"></strong></span></p>
+          <p><a href="#" onclick="this.style.visibility='hidden'" class="js-more" data-id="<%= project.id %>">More</a></p>
     <% end %>
 
-<br>
 
 
 
@@ -24,7 +21,6 @@ PROJECT #INDEX PAGE
       event.preventDefault();
       var nextId = parseInt($(el).attr("data-id"));
       $.get("/projects/" + nextId + ".json", function(data) {
-        $(".projectStudio").text(data["studio"]);
         $(`.locationName${data.id}`).text(data["location"]["name"]); //AKA ProductionCompany
         $(`.locationAddress${data.id}`).text(data["location"]["address"]);
         // re-set the id to current on the link

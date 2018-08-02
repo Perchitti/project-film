@@ -24,6 +24,25 @@ $(document).ready(function() {
   });
 });
 
+// hide equipment section when clicking "next"
+$(document).ready(function(){
+    $(".js-next").on("click", function(){
+        $(".myDIV").hide();
+    });
+    $("#show").click(function(){
+        $("p").show();
+    });
+});
+
 
 
 // hide more button once clicked on project/index page
+
+$(document).ready(function(){
+    $(".js-more").on("click", function(){
+        $(".hideMore").hide();
+    });
+    $("#show").click(function(){
+        $("p").show();
+    });
+});
