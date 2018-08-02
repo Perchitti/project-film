@@ -29,18 +29,18 @@ PROEJCTS #SHOW Page
     });
   </script>
 
+  <div class="myDIV">
+
 <p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
 <br>
 
-    <% if current_user %>
+
       <p><strong>Necessary Equipment:</strong></p>
         <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
           <p><%= f.text_area :content %></p>
           <button type="submit">Add Equipment</button>
-        <% end %><br>
-    <% else %>
-      <p>Please log in order to add equipment to this project.</p>
     <% end %>
+
     <h5><strong>Equipment:</strong></h5>
       <% @project.items.each do |item| %>
       <li><%= link_to item.content, project_item_path(@project, item) %>
@@ -55,4 +55,5 @@ PROEJCTS #SHOW Page
  <!-- <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
 </div> -->
 <br>
+</div>
 </div>
