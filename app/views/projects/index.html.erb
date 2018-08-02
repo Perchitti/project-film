@@ -4,31 +4,31 @@ PROJECT #INDEX PAGE
 
 
 
-<% @projects.each do |project| %>
-  <li><%= link_to project.title, project_path(project) %>
-    <p><span class="projectStudio"><%= project.studio %></span><p>
-      <p><span class="locationName"></span></p>
-      <p><a href="#" class="js-more<% project.id %>" data-id="<%= project.id %>">More</a></p>
-  <br>
-<% end %>
+    <% @projects.each do |project| %>
+      <li><%= link_to project.title, project_path(project) %>
+        <p><%= project.studio %></span><p>
+          <p><span class="locationName<%= project.id %>"></span></p>
+          <p><span class="locationAddress<%= project.id %>"></span></p>
+          <p><a href="#" class="js-more" data-id="<%= project.id %>">More</a></p>
+      <br>
+    <% end %>
 
 <br>
-
 
 
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
     $(".js-more").each(function(num, el){
-
     $(el).on("click", function(event) {
       event.preventDefault();
-      var nextId = parseInt(el.attr("data-id"));
+      var nextId = parseInt($(el).attr("data-id"));
       $.get("/projects/" + nextId + ".json", function(data) {
-        $(".locationName").text(data["location"]["name"]);
-        $(".locationAddress").text(data["location"]["address"]);
-      });
+        $(".projectStudio").text(data["studio"]);
+        $(`.locationName${data.id}`).text(data["location"]["name"]); //AKA ProductionCompany
+        $(`.locationAddress${data.id}`).text(data["location"]["address"]);
         // re-set the id to current on the link
+      })
       });
     });
   });
