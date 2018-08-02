@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   #  resources :sessions, only: [:create, :destroy]
   #end
 
-  #post '/users/auth/facebook', to: 'projects#create'
 resources :users, only: [:show] do
   resources :projects, to: 'users#projects'
 end
