@@ -38,8 +38,8 @@
         <div class="w3-bar-item w3-padding-small w3-hide-small w3-right">
 
     <% if current_user %>
-    <%= link_to "Create", new_project_path %>
-      <%= link_to "Edit profile", edit_user_registration_path %>
+    <strong><%= link_to "Add Project", new_project_path %></strong>
+      <%= link_to "View Projects", projects_path %>
       <%= link_to "Logout", destroy_user_session_path, method: :delete  %>
     <% else %>
       <%= link_to "Sign up", new_user_registration_path  %>

@@ -1,3 +1,5 @@
+PROEJCTS #SHOW Page
+
 <div class="right">
 
 <a href="#" class="js-next" data-id="<%=@project.id%>">Next...</a>
@@ -29,6 +31,7 @@
 
 <p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
 <br>
+
     <% if current_user %>
       <p><strong>Necessary Equipment:</strong></p>
         <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
@@ -45,12 +48,11 @@
     <% end %>
 
     Need to make final decision on items (equipment) form.
-
-
 <br>
-
+<br>
+<br>
+<%= button_to "Delete All", project_path(@project), method: :delete, data: { confirm: "Are you sure?" } %>
  <!-- <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
 </div> -->
-
-<%= link_to "All Projects", projects_path %>
+<br>
 </div>
