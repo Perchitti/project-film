@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     @project = Project.find(params[:project_id])
-    @item = current_user.items
+    @item.project = @project
     respond_to do |format|
       if @item.update(item_params)
         format.html { redirect_to @project, notice: 'Item was successfully updated.' }
