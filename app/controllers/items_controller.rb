@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
   # DELETE /items/1.json
   def destroy
     @project = Project.find(params[:project_id])
-    @item = current_user.items
+    @item = current_user
     @item.destroy
     respond_to do |format|
       format.html { redirect_to project_item_path, notice: 'Item was successfully destroyed.' }
