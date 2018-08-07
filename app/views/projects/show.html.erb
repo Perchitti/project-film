@@ -42,12 +42,12 @@ PROEJCTS #SHOW Page
     <% end %>
 
     <h5><strong>Equipment:</strong></h5>
+
       <% @project.items.each do |item| %>
       <li><%= link_to item.content, project_item_path(@project, item) %>
               <br>
     <% end %>
 
-    Need to make final decision on items (equipment) form.
 <br>
 <br>
 <br>
