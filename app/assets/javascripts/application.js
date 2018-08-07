@@ -29,15 +29,44 @@ $(document).ready(function(){
     $(".js-next").on("click", function(){
         $(".myDIV").hide();
     });
-    $("#show").click(function(){
-        $("p").show();
-    });
 });
 
 
 
-// hide more button once clicked on project/index page
+//"next" button on project/show page
 
+  $(document).ready(function () {
+    $(".js-next").on("click", function(event) {
+      event.preventDefault();
+      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+      $.get("/projects/" + nextId + ".json", function(data) {
+        $(".projectTitle").text(data["title"]);
+        $(".projectDescription").text(data["description"]);
+        $(".projectStudio").text(data["studio"]);
+        $(".locationName").text(data["location"]["name"]);
+        $(".locationAddress").text(data["location"]["address"]);
+        // re-set the id to current on the link
+        $(".js-next").attr("data-id", data["id"]);
+      });
+    });
+  });
+
+
+
+//organize UL on project/show page
+  var $divs = $(".box");
+
+  $('#itemOrder').on('click', function () {
+      var orderedDivs = $divs.sort(function (a, b) {
+          return $(a).find("li").text.toLowerCase() > $(b).find("li").text().toLowerCase();
+      });
+      $("#final").html(orderedDivs);
+  });
+
+
+
+
+// hide more button once clicked on project/index page
 $(document).ready(function(){
     $(".js-more").on("click", function(){
         $(".hideMore").hide();
