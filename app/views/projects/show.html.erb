@@ -1,4 +1,8 @@
 PROEJCTS #SHOW Page
+<html>
+
+<head>
+</head>
 
 <div class="right">
 
@@ -11,25 +15,12 @@ PROEJCTS #SHOW Page
 
     <%= link_to "All Locations", project_locations_path(@project) %>
 
-  <script type="text/javascript" charset="utf-8">
-    $(function () {
-      $(".js-next").on("click", function(event) {
-        event.preventDefault();
-        var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-        $.get("/projects/" + nextId + ".json", function(data) {
-          $(".projectTitle").text(data["title"]);
-          $(".projectDescription").text(data["description"]);
-          $(".projectStudio").text(data["studio"]);
-          $(".locationName").text(data["location"]["name"]);
-          $(".locationAddress").text(data["location"]["address"]);
-          // re-set the id to current on the link
-          $(".js-next").attr("data-id", data["id"]);
-        });
-      });
-    });
-  </script>
 
-  <div class="myDIV">
+
+
+
+
+<div class="myDIV">
 
 <p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
 <br>
@@ -41,12 +32,52 @@ PROEJCTS #SHOW Page
           <button type="submit">Add Equipment</button>
     <% end %>
 
-    <h5><strong>Equipment:</strong></h5>
+<br>
 
+  <button id=alphBnt onclick="sortList()">Equipment:</button>
+  <div class="final">
+  <ul id="id01">
       <% @project.items.each do |item| %>
-      <li><%= link_to item.content, project_item_path(@project, item) %>
-              <br>
+            <li><%= item.content %></li>
     <% end %>
+    </ul>
+  </div>
+
+    <script>
+function sortList() {
+  var list, i, switching, b, shouldSwitch;
+  list = document.getElementById("id01");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    b = list.getElementsByTagName("LI");
+    //Loop through all list-items:
+    for (i = 0; i < (b.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*check if the next item should
+      switch place with the current item:*/
+      if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+        /*if next item is alphabetically
+        lower than current item, mark as a switch
+        and break the loop:*/
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark the switch as done:*/
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
+    }
+  }
+}
+</script>
+
 
 <br>
 <br>
@@ -57,3 +88,5 @@ PROEJCTS #SHOW Page
 <br>
 </div>
 </div>
+</body>
+</html>
