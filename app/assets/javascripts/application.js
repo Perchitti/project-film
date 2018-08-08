@@ -52,26 +52,26 @@ $(document).ready(function(){
   });
 
 
+// attempts to organize UL on project/show page
 
-//organize UL on project/show page
-  var $divs = $(".box");
+
+  var $divs = $("#box");
 
   $('#itemOrder').on('click', function () {
       var orderedDivs = $divs.sort(function (a, b) {
-          return $(a).find("li").text.toLowerCase() > $(b).find("li").text().toLowerCase();
+          return $(a).find("li").text.toLowerCase() > $(b).find("li").text.toLowerCase();;
       });
-      $("#final").html(orderedDivs);
+      $(".final").html(orderedDivs);
   });
 
 
 
 
+
+
+
 // hide more button once clicked on project/index page
+
 $(document).ready(function(){
     $(".js-more").on("click", function(){
         $(".hideMore").hide();
-    });
-    $("#show").click(function(){
-        $("p").show();
-    });
-});
