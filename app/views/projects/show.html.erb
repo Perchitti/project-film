@@ -35,13 +35,15 @@ PROEJCTS #SHOW Page
 <br>
 
   <button id=itemOrder onclick="sortList()">Equipment:</button>
-  <div class="final">
-  <ul id="id01">
-      <% @project.items.each do |item| %>
-            <li><%= item.content %></li>
-    <% end %>
+    <div class="final">
+      <ul id="id01">
+        <% @project.items.each do |item| %>
+            <li><%= link_to(item.content, "/items/" + item.id.to_s )%></li>
+        <% end %>
     </ul>
   </div>
+
+  <%= link_to "All Items", project_items_path(@project, @item) %>
 
 <script>
 function sortList() {
