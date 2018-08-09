@@ -1,10 +1,9 @@
 PROEJCTS #SHOW Page
 <html>
+  <head>
+  </head>
 
-<head>
-</head>
-
-<div class="right">
+  <div class="right">
 
   <a href="#" class="js-next" data-id="<%=@project.id%>">Next..</a>
       <p>Title: <span class="projectTitle"><%=@project.title%></span></p>
@@ -24,32 +23,26 @@ PROEJCTS #SHOW Page
 
 <div class="myDIV">
 
-<p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
-<br>
+  <p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
+  <br>
 
-
-      <p><strong>Necessary Equipment:</strong></p>
-        <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
-          <p><%= f.text_area :content, required: true %></p>
-          <button type="submit">Add</button>
-    <% end %>
-
+  <p><strong>Necessary Equipment:</strong></p>
+      <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
+        <p><%= f.text_area :content, required: true %></p>
+        <button type="submit">Add</button>
+      <% end %>
 <br>
 
 <a href="#" class="buttons link-sort-list asc">Equipment:</a>
   <ul id="sort-list">
-      <% @project.items.each do |item| %>
+    <% @project.items.each do |item| %>
       <li><%= link_to "#{item.content}", project_item_path(@project, item) %></li>
-      <% end %>
-      </ul>
-
-
+    <% end %>
+  </ul>
 
   <%= link_to "All Items", project_items_path(@project, @item) %>
+
 </div>
-
-
-
 
 <br>
 
@@ -57,6 +50,6 @@ PROEJCTS #SHOW Page
 </div> -->
 <br>
 
-</div>
-</body>
+    </div>
+  </body>
 </html>
