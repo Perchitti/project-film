@@ -1,5 +1,7 @@
 {
   "name": "project-film",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "jquery.terminal": "^1.19.1"
+  }
 }
