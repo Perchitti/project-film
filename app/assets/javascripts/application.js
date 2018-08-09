@@ -15,6 +15,7 @@
 //= require activestorage
 //= require_tree .
 
+
 // More button on welcome page
 
 $(document).ready(function() {
@@ -51,6 +52,8 @@ $(document).ready(function() {
 });
 
 
+
+
 // Next.. button on project-show page
 
 $(document).ready(function () {
@@ -79,11 +82,11 @@ $(document).ready(function(){
 
 // hide more button once clicked on project/index page
 
-$(document).ready(function(){
-    $(".js-more").on("click", function(){
-        $(".hideMore").hide();
-      })
-    })
+// $(document).ready(function(){
+  //  $(".js-more").on("click", function(){
+    //    $("#btn").hide();
+    //  })
+    // })
 
 
 // remove any empty items (validation now put in to prevent this)
@@ -93,7 +96,7 @@ $('ul li:empty').remove();
 
 // addLocation and Remove
     function addItem(){
-    	var ul = document.getElementById("dynamic-list");
+    	var ul = document.getElementById("locationList");
       var candidate = document.getElementById("candidate");
       var li = document.createElement("li");
       li.setAttribute('id',candidate.value);
@@ -102,8 +105,20 @@ $('ul li:empty').remove();
     }
 
     function removeItem(){
-    	var ul = document.getElementById("dynamic-list");
+    	var ul = document.getElementById("locationList");
       var candidate = document.getElementById("candidate");
       var item = document.getElementById(candidate.value);
       ul.removeChild(item);
     }
+
+
+    //More button Projects index Page
+    $(document).ready(function () {
+    $(".projectsExpand").on('click', '.js-more', function(e) {
+        e.preventDefault();
+        var id = this.dataset.id;
+        $.get("/projects/" + id + ".json", function(data) {
+          $("#locationAddress").text(data["location"]["name"])
+        });
+      });
+    })
