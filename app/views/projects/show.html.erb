@@ -6,14 +6,16 @@ PROEJCTS #SHOW Page
 
 <div class="right">
 
-<a href="#" class="js-next" data-id="<%=@project.id%>">Next...</a>
-    <p>Title: <span class="projectTitle"><%=@project.title%></span></p>
-    <p>Description: <span class="projectDescription"><%= @project.description %></span></p>
-    <p>Location: <span class="projectStudio"><%=@project.studio%></span></p>
-    <p>Production Company: <span class="locationName"><%=@project.location.name%></span></p>
-    <p>Address: <span class="locationAddress"><%=@project.location.address%></span></p>
+  <a href="#" class="js-next" data-id="<%=@project.id%>">Next...</a>
+      <p>Title: <span class="projectTitle"><%=@project.title%></span></p>
+      <p>Description: <span class="projectDescription"><%= @project.description %></span></p>
+      <p>Location: <span class="projectStudio"><%=@project.studio%></span></p>
+      <p>Production Company: <span class="locationName"><%=@project.location.name%></span></p>
+      <p>Address: <span class="locationAddress"><%=@project.location.address%></span></p>
 
-    <%= link_to "All Locations", project_locations_path(@project) %>
+      <%= link_to "All Locations", project_locations_path(@project) %>
+
+
 
 
 
@@ -28,52 +30,33 @@ PROEJCTS #SHOW Page
 
       <p><strong>Necessary Equipment:</strong></p>
         <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
-          <p><%= f.text_area :content %></p>
+          <p><%= f.text_area :content, required: true %></p>
           <button type="submit">Add</button>
     <% end %>
 
 <br>
 
-  <button id=itemOrder onclick="sortList()">Equipment:</button>
-    <div class="final">
-      <ul id="id01">
-        <% @project.items.each do |item| %>
-            <li><%= link_to(item.content, "/items/" + item.id.to_s )%></li>
-        <% end %>
-    </ul>
-  </div>
+<a href="#" class="buttons link-sort-list asc">Equipment:</a>
+  <ul id="sort-list">
+      <% @project.items.each do |item| %>
+      <li><%= link_to "#{item.content}", project_item_path(@project, item) %></li>
+      <% end %>
+      </ul>
+
+
 
   <%= link_to "All Items", project_items_path(@project, @item) %>
+</div>
 
-<script>
-function sortList() {
-var list, i, switching, b, shouldSwitch;
-list = document.getElementById("id01");
-switching = true;
-while (switching) {
-  switching = false;
-  b = list.getElementsByTagName("LI");
-  for (i = 0; i < (b.length - 1); i++) {
-    shouldSwitch = false;
-    if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-      shouldSwitch = true;
-      break;
-    }
-  }
-  if (shouldSwitch) {
-    b[i].parentNode.insertBefore(b[i + 1], b[i]);
-    switching = true;
-  }
-}
-}
-</script>
+
+
 
 <br>
 
  <!-- <a href="#" data-id="<%=@project.id%>">View Previous Projects</a><br><br>
 </div> -->
 <br>
-</div>
+
 </div>
 </body>
 </html>
