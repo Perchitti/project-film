@@ -13,65 +13,78 @@
 //= require jquery
 //= require jquery_ujs
 //= require activestorage
-//= require turbolinks
 //= require_tree .
 
 
+// A-Z items when clicking "Equipment"
+
 $(document).ready(function() {
-  $('[data-js-hide-link]').click(function(event){
-    $(this).parents('li').hide();
+    $('.link-sort-list').click(function(e) {
+        var $sort = this;
+        var $list = $('#sort-list');
+        var $listLi = $('li',$list);
+        $listLi.sort(function(a, b){
+            var keyA = $(a).text();
+            var keyB = $(b).text();
+            if($($sort).hasClass('asc')){
+                return (keyA > keyB) ? 1 : 0;
+            } else {
+                return (keyA < keyB) ? 1 : 0;
+            }
+        });
+        $.each($listLi, function(index, row){
+            $list.append(row);
+        });
+        e.preventDefault();
+    });
+});
+
+
+$(document).ready(function () {
+  $(".js-next").on("click", function(event) {
     event.preventDefault();
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    $.get("/projects/" + nextId + ".json", function(data) {
+      $(".projectTitle").text(data["title"]);
+      $(".projectDescription").text(data["description"]);
+      $(".projectStudio").text(data["studio"]);
+      $(".locationName").text(data["location"]["name"]);
+      $(".locationAddress").text(data["location"]["address"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", data["id"]);
+    });
   });
 });
 
-// hide equipment section when clicking "next"
+
 $(document).ready(function(){
     $(".js-next").on("click", function(){
-        $(".myDIV").hide();
+        $("div.myDIV").hide();
     });
 });
-
-
-
-//"next" button on project/show page
-
-  $(document).ready(function () {
-    $(".js-next").on("click", function(event) {
-      event.preventDefault();
-      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
-      $.get("/projects/" + nextId + ".json", function(data) {
-        $(".projectTitle").text(data["title"]);
-        $(".projectDescription").text(data["description"]);
-        $(".projectStudio").text(data["studio"]);
-        $(".locationName").text(data["location"]["name"]);
-        $(".locationAddress").text(data["location"]["address"]);
-        // re-set the id to current on the link
-        $(".js-next").attr("data-id", data["id"]);
-      });
-    });
-  });
-
-
-// attempts to organize UL on project/show page
-
-
-  var $divs = $("#box");
-
-  $('#itemOrder').on('click', function () {
-      var orderedDivs = $divs.sort(function (a, b) {
-          return $(a).find("li").text.toLowerCase() > $(b).find("li").text.toLowerCase();;
-      });
-      $(".final").html(orderedDivs);
-  });
-
-
-
-
-
-
 
 // hide more button once clicked on project/index page
 
 $(document).ready(function(){
     $(".js-more").on("click", function(){
         $(".hideMore").hide();
+      })
+    })
+
+
+// addLocation and Remove
+    function addItem(){
+    	var ul = document.getElementById("dynamic-list");
+      var candidate = document.getElementById("candidate");
+      var li = document.createElement("li");
+      li.setAttribute('id',candidate.value);
+      li.appendChild(document.createTextNode(candidate.value));
+      ul.appendChild(li);
+    }
+
+    function removeItem(){
+    	var ul = document.getElementById("dynamic-list");
+      var candidate = document.getElementById("candidate");
+      var item = document.getElementById(candidate.value);
+      ul.removeChild(item);
+    }
