@@ -15,6 +15,17 @@
 //= require activestorage
 //= require_tree .
 
+// More button on welcome page
+
+$(document).ready(function() {
+          $('#readmore').click(function() {
+
+              $(this).prev('.answer').slideToggle(500);
+              $(this).toggleClass('close');
+
+          });
+      });
+
 
 // A-Z items when clicking "Equipment"
 
@@ -24,8 +35,8 @@ $(document).ready(function() {
         var $list = $('#sort-list');
         var $listLi = $('li',$list);
         $listLi.sort(function(a, b){
-            var keyA = $(a).text();
-            var keyB = $(b).text();
+            var keyA = $(a).text().toLowerCase();
+            var keyB = $(b).text().toLowerCase();
             if($($sort).hasClass('asc')){
                 return (keyA > keyB) ? 1 : 0;
             } else {
@@ -39,6 +50,8 @@ $(document).ready(function() {
     });
 });
 
+
+// Next.. button on project-show page
 
 $(document).ready(function () {
   $(".js-next").on("click", function(event) {
@@ -72,6 +85,11 @@ $(document).ready(function(){
       })
     })
 
+
+// remove any empty items (validation now put in to prevent this)
+$(document).ready(function() {
+$('ul li:empty').remove();
+})
 
 // addLocation and Remove
     function addItem(){
