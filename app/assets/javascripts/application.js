@@ -56,6 +56,7 @@ $(document).ready(function () {
   });
 });
 
+// Hide comments when clicking Next.. on project/show page
 
 $(document).ready(function(){
     $(".js-next").on("click", function(){
