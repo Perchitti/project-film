@@ -5,7 +5,11 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @items = Item.all
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @items }
   end
+end
 
   # GET /items/1
   # GET /items/1.json
@@ -48,7 +52,7 @@ class ItemsController < ApplicationController
     @item.project = @project
     respond_to do |format|
       if @item.update(item_params)
-        format.html { redirect_to @project, notice: 'Item was successfully updated.' }
+        format.html { redirect_to project_item_path, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
