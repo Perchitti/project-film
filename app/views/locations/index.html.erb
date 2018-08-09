@@ -14,14 +14,16 @@
   <tbody>
     <% @locations.each do |location| %>
       <tr>
-        <td><%= location.name %></td>
-        <td><%= location.address %></td>
+        <ul>
+        <td><li><%= location.name %></li></td>
+        <td><li><%= location.address %></li></td>
+      </ul>
       </tr>
     <% end %>
   </tbody>
-  <ul id="dynamic-list"></ul>
+  <ul id="locationList"></ul>
 </table>
-<input type="text" id="candidate"/>
-<button onclick="addItem()">Add Location</button>
-<button onclick="removeItem()">Remove Location</button>
+  <input type="text" id="candidate"/>
+<button onclick="addItem()">Add Production</button>
+<button onclick="removeItem()">Remove Production</button>
 <br>
