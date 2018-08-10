@@ -16,7 +16,7 @@ end
     end
   respond_to do |format|
     format.html { render :show }
-    format.json { render json: @project }
+      format.json { render json: @project }
   end
 end
 

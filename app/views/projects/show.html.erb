@@ -16,11 +16,6 @@ PROEJCTS #SHOW Page
 
 
 
-
-
-
-
-
 <div class="myDIV">
 
   <p class="btn btn-secondary"><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
@@ -37,7 +32,7 @@ PROEJCTS #SHOW Page
   <div id="submitted-items">
     <% @project.items.each do |item| %>
     <div class="well well-white" id="item-<%= item.id %>">
-      <strong class="itemUserEmail"><%= item.user.email %></strong> added: <span class="itemContent"><%= item.content %></span>
+      <strong class="itemUserEmail"><%= item.user.email %></strong> | <span class="itemContent"><%= item.content %></span>
     </div>
     <% end %>
   </div>
