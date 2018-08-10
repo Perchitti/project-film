@@ -12,7 +12,7 @@ PROEJCTS #SHOW Page
       <p>Production Company: <span class="locationName"><%=@project.location.name%></span></p>
       <p>Address: <span class="locationAddress"><%=@project.location.address%></span></p>
 
-      <%= link_to "All Locations", project_locations_path(@project) %>
+    <!--  <%= link_to "All Locations", project_locations_path(@project) %> -->
 
 
 
@@ -23,12 +23,12 @@ PROEJCTS #SHOW Page
 
 <div class="myDIV">
 
-  <p><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
+  <p class="btn btn-secondary"><i> Edit Project: <%= link_to @project.title, edit_project_path(@project) %></i></p>
   <br>
 
-  <p><strong>Necessary Equipment:</strong></p>
+  <p><strong class="equipmentNeeded">Equipment Needed:</strong></p>
       <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
-        <p><%= f.text_area :content, required: true, class: 'itemBox form-control' %></p>
+        <p><%= f.text_area :content, required: true, class: 'itemBox col-md-4' %></p>
         <button type="submit" class="btn btn-sm btn-primary">Add</button>
       <% end %>
 <br>
@@ -37,13 +37,11 @@ PROEJCTS #SHOW Page
   <div id="submitted-items">
     <% @project.items.each do |item| %>
     <div class="well well-white" id="item-<%= item.id %>">
-      <strong class="itemUserEmail"><%= item.user.email %></strong> says: <span class="itemContent"><%= item.content %></span>
+      <strong class="itemUserEmail"><%= item.user.email %></strong> added: <span class="itemContent"><%= item.content %></span>
     </div>
     <% end %>
   </div>
-
-
-  <%= link_to "All Items", project_items_path(@project, @item) %>
+<br>
 
 </div>
 
