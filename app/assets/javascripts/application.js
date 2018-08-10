@@ -18,6 +18,7 @@
 //= require_tree .
 
 
+// show each location related to the project when clicking "more"
 
 $(document).ready(function () {
   $(".js-more").on("click", function(event) {
@@ -32,6 +33,14 @@ $(document).ready(function () {
 
 
 
+$(document).ready(function () {
+  $("#locationBtn").on("click", function(event) {
+    event.preventDefault();
+    $.get("/locations.json", function(data) {
+      $("#locationIndex").forEach(data.name)
+    })
+  })
+})
 
 
 // hide item on click (used as a checklist)
@@ -55,31 +64,6 @@ $(document).ready(function() {
            })
           })
 
-// A-Z items when clicking "Equipment"(not using)
-
-$(document).ready(function() {
-    $('.link-sort-list').click(function(e) {
-        var $sort = this;
-        var $list = $('#sort-list');
-        var $listLi = $('li',$list);
-        $listLi.sort(function(a, b){
-            var keyA = $(a).text().toLowerCase();
-            var keyB = $(b).text().toLowerCase();
-            if($($sort).hasClass('asc')){
-                return (keyA > keyB) ? 1 : 0;
-            } else {
-                return (keyA < keyB) ? 1 : 0;
-            }
-        });
-        $.each($listLi, function(index, row){
-            $list.append(row);
-        });
-        e.preventDefault();
-    });
-});
-
-
-
 
 // Next.. button on project-show page
 
@@ -93,7 +77,7 @@ $(document).ready(function () {
       $(".projectStudio").text(data["studio"]);
       $(".locationName").text(data["location"]["name"]);
       $(".locationAddress").text(data["location"]["address"]);
-      // re-set the id to current on the link
+
       $(".js-next").attr("data-id", data["id"]);
     });
   });
@@ -101,20 +85,49 @@ $(document).ready(function () {
 
 // Hide items when clicking Next.. on project/show page
 
-//$(document).ready(function(){
-  //  $(".js-next").on("click", function(){
-    //    $("div.myDIV").hide();
-  //  });
-//});
+$(document).ready(function(){
+    $(".js-next").on("click", function(){
+      $("div.myDIV").hide();
+    });
+});
 
-// hide more button once clicked on project/index page
 
- //$(document).ready(function(){
-  //  $(".js-more").on("click", function(){
-    //    $(".js-more").hide();
-    //  })
-  // })
+  // Add item to form. Json renders shows item and email of user.
+      function Item(data) {
+        this.id = data.id;
+        this.content = data.content;
+        this.user = data.user;
+      }
 
+
+
+      Item.prototype.showDisplay = function() {
+        var html = "" ;
+        html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " | " + this.content + "</div>";
+        $("#submitted-items").append(html);
+      }
+
+      $(function() {
+        $("form#new_item").on("submit", function(event) {
+          event.preventDefault();
+          var $form = $(this);
+          var action = $form.attr("action");
+          // item(form input), converted from an object => string.
+          var params = $form.serialize();
+          $.ajax({
+            url: action,
+            data: params,
+            dataType: "json",
+            method: "POST"
+          })
+          .success(function(json) {
+          $(".itemBox").val("");
+            var item = new Item(json);
+            item.showDisplay();
+
+          })
+        })
+      })
 
 // remove any empty items (validation now put in to prevent this)
 $(document).ready(function() {
@@ -150,42 +163,29 @@ $('ul li:empty').remove();
       });
     })
 
-// Add item to form. Json renders shows item and email of user.
-    function Item(data) {
-      this.id = data.id;
-      this.content = data.content;
-      this.user = data.user;
-    }
 
+    // A-Z items when clicking "Equipment"(not using)
 
-
-    Item.prototype.renderDisplay = function() {
-      var html = "" ;
-      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " added: " + this.content + "</div>";
-      $("#submitted-items").append(html);
-    }
-
-    $(function() {
-      $("form#new_item").on("submit", function(event) {
-        event.preventDefault();
-        var $form = $(this);
-        var action = $form.attr("action");
-        // item(form input), converted from an object => string.
-        var params = $form.serialize();
-        $.ajax({
-          url: action,
-          data: params,
-          dataType: "json",
-          method: "POST"
-        })
-        .success(function(json) {
-          $(".itemBox").val("");
-          var item = new Item(json);
-          item.renderDisplay();
-
-        })
-      })
-    })
+    $(document).ready(function() {
+        $('.link-sort-list').click(function(e) {
+            var $sort = this;
+            var $list = $('#sort-list');
+            var $listLi = $('li',$list);
+            $listLi.sort(function(a, b){
+                var keyA = $(a).text().toLowerCase();
+                var keyB = $(b).text().toLowerCase();
+                if($($sort).hasClass('asc')){
+                    return (keyA > keyB) ? 1 : 0;
+                } else {
+                    return (keyA < keyB) ? 1 : 0;
+                }
+            });
+            $.each($listLi, function(index, row){
+                $list.append(row);
+            });
+            e.preventDefault();
+        });
+    });
 
 
 //var myArray = ['adam', 'bianca', 'cat', 'dennis'];
