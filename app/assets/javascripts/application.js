@@ -18,19 +18,44 @@
 //= require_tree .
 
 
-// More button on welcome page
+
+$(document).ready(function () {
+  $(".js-more").on("click", function(event) {
+    event.preventDefault();
+    var nextId = this.dataset.id;
+    $.get("/projects/" + nextId + ".json", function(data) {
+      $(".locationAddress" + nextId).text(data["location"]["address"]);
+
+    });
+  });
+});
+
+
+
+
+
+// hide item on click (used as a checklist)
+$(function() {
+$(".itemContent").click(function() {
+  $( this ).slideUp();
+});
+})
+
+// More button on welcome page, hide more once clicked
 
 $(document).ready(function() {
           $('#readmore').click(function() {
-
               $(this).prev('.answer').slideToggle(500);
-              $(this).toggleClass('close');
-
           });
       });
 
+      $(document).ready(function(){
+         $("#readmore").on("click", function(){
+             $("#readmore").hide();
+           })
+          })
 
-// A-Z items when clicking "Equipment"
+// A-Z items when clicking "Equipment"(not using)
 
 $(document).ready(function() {
     $('.link-sort-list').click(function(e) {
@@ -76,19 +101,19 @@ $(document).ready(function () {
 
 // Hide items when clicking Next.. on project/show page
 
-$(document).ready(function(){
-    $(".js-next").on("click", function(){
-        $("div.myDIV").hide();
-    });
-});
+//$(document).ready(function(){
+  //  $(".js-next").on("click", function(){
+    //    $("div.myDIV").hide();
+  //  });
+//});
 
 // hide more button once clicked on project/index page
 
-// $(document).ready(function(){
+ //$(document).ready(function(){
   //  $(".js-more").on("click", function(){
-    //    $("#btn").hide();
+    //    $(".js-more").hide();
     //  })
-    // })
+  // })
 
 
 // remove any empty items (validation now put in to prevent this)
@@ -116,16 +141,16 @@ $('ul li:empty').remove();
 
     //More button Projects index Page
     $(document).ready(function () {
-    $(".projectsExpand").on('click', '.js-more', function(e) {
+    $("div.projectsExpand").on('click', 'a.js-more', function(e) {
         e.preventDefault();
-        var id = this.dataset.id;
+        var id = this.dataset.id
         $.get("/projects/" + id + ".json", function(data) {
-          $("#locationAddress").text(data["location"]["name"])
+          $("#projectDescription-" + id).text(data["description"])
         });
       });
     })
 
-
+// Add item to form. Json renders shows item and email of user.
     function Item(data) {
       this.id = data.id;
       this.content = data.content;
@@ -136,7 +161,7 @@ $('ul li:empty').remove();
 
     Item.prototype.renderDisplay = function() {
       var html = "" ;
-      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " says: " + this.content + "</div>";
+      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " added: " + this.content + "</div>";
       $("#submitted-items").append(html);
     }
 
@@ -145,7 +170,7 @@ $('ul li:empty').remove();
         event.preventDefault();
         var $form = $(this);
         var action = $form.attr("action");
-        // in order to process the item(form data), its need to be converted from an object to a string.
+        // item(form input), converted from an object => string.
         var params = $form.serialize();
         $.ajax({
           url: action,
