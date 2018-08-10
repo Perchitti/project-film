@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require activestorage
+//= require popper
+//= require bootstrap-sprockets
 //= require_tree .
 
 
@@ -72,7 +74,7 @@ $(document).ready(function () {
   });
 });
 
-// Hide comments when clicking Next.. on project/show page
+// Hide items when clicking Next.. on project/show page
 
 $(document).ready(function(){
     $(".js-next").on("click", function(){
@@ -122,3 +124,56 @@ $('ul li:empty').remove();
         });
       });
     })
+
+
+    function Item(data) {
+      this.id = data.id;
+      this.content = data.content;
+      this.user = data.user;
+    }
+
+
+
+    Item.prototype.renderDisplay = function() {
+      var html = "" ;
+      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " says: " + this.content + "</div>";
+      $("#submitted-items").append(html);
+    }
+
+    $(function() {
+      $("form#new_item").on("submit", function(event) {
+        event.preventDefault();
+        var $form = $(this);
+        var action = $form.attr("action");
+        // in order to process the item(form data), its need to be converted from an object to a string.
+        var params = $form.serialize();
+        $.ajax({
+          url: action,
+          data: params,
+          dataType: "json",
+          method: "POST"
+        })
+        .success(function(json) {
+          $(".itemBox").val("");
+          var item = new Item(json);
+          item.renderDisplay();
+
+        })
+      })
+    })
+
+
+//var myArray = ['adam', 'bianca', 'cat', 'dennis'];
+//var myFunc = function (letter) {
+  //  for (var i = 0; i < letter.length; i += 1) {
+        // Use the index i here
+    //    console.log(letter[i].charAt(0));
+//    }
+//}
+
+// Call your function, passing in the array you defined:
+//myFunc(myArray);
+// a
+// b
+// c
+// d
