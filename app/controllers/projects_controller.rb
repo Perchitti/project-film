@@ -28,6 +28,15 @@ end
   end
 end
 
+def create
+  @project = current_user.projects.new(project_params)
+    if @project.save
+      redirect_to project_path(@project)
+    else
+      redirect_to new_project_path, alert: "Must add title"
+    end
+  end
+
 
   def edit
   end
@@ -37,17 +46,6 @@ end
     render json: @project
   end
 
-
-
-
-  def create
-    @project = current_user.projects.new(project_params)
-      if @project.save
-        redirect_to project_path(@project)
-      else
-        redirect_to new_project_path, alert: "Must add title"
-      end
-    end
 
   def update
     respond_to do |format|
