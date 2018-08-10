@@ -7,9 +7,55 @@ PROJECT #INDEX PAGE
         <span class="locationAddress<%= project.id %>"></span>
           <br>
           <a href="#" class="js-more" onclick="this.style.visibility='hidden'" data-id="<%= project.id %>">More</a>
-      <!--   <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li> -->
+      <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li>
         <br>
     <% end %>
 
+
+<div id="locationIndex">
+
+  <button id="locationBtn">Click</button>
+</div>
+
+
+
   </div>
 </div>
+
+
+function Locations(data) {
+  this.id = data.id
+  this.name = data.name
+}
+
+Locations.prototype.showLocation = function() {
+  return this.name
+}
+
+$(function (){
+  $(.locationIndex)on("submit", function(event){
+    event.preventDefault();
+    var $div = $(this);
+    var action = $div.attr("action")
+    var params = $div.seralize();
+    $.ajax({
+      url: action,
+      data: params,
+      dataType: "json",
+      method: "POST"
+    })
+    .success(function(json){
+      var name = Locations(json);
+      location.showLocation()
+    })
+  })
+})
+
+let Location = function(name) {
+  this.name = name;
+  this.getName = function(){
+    return this.name;
+  }
+}
+
+let newLocation  = new Location('NYC')
