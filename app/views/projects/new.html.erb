@@ -1,35 +1,9 @@
-<div class="container">
+
 <div class="right">
   <div class="col-md-4">
 <%= render partial: 'form' %>
-<div id="projectResult">
-  <h2 id="projectTitle"></h2>
-    <p id="projectDescription"></p>
-    <p id="projectStudio"></p>
-      <p id="locationProduction"></p>
-      <p id= "locationAddress"></p>
-    </div>
 
-    <script type="text/javascript" charset="utf-8">
-  $(function () {
-    $('form').submit(function(event) {
-      //prevent form from submitting the default way
-      event.preventDefault();
-
-      var values = $(this).serialize();
-
-      var posting = $.post('/projects', values);
-
-      posting.done(function(data) {
-        var project = data;
-        $("#projectTitle").text(project["title"]);
-        $("#projectDescription").text(project["description"]);
-        $("#projectStudio").text(project["studio"]);
-      });
-    });
-  });
-</script>
+<br>
 <%= link_to "All Projects", projects_path, class: "btn btn-secondary" %>
-</div>
 </div>
 </div>
