@@ -1,4 +1,6 @@
+<div class="container">
 <div class="right">
+  <div class="col-md-4">
 <%= render partial: 'form' %>
 <div id="projectResult">
   <h2 id="projectTitle"></h2>
@@ -27,5 +29,7 @@
     });
   });
 </script>
-<%= link_to "All Projects", projects_path %>
+<%= link_to "All Projects", projects_path, class: "btn btn-secondary" %>
+</div>
+</div>
 </div>
