@@ -28,17 +28,20 @@ PROEJCTS #SHOW Page
 
   <p><strong>Necessary Equipment:</strong></p>
       <%= form_for @item, url: project_items_path(@project, @item)  do |f| %>
-        <p><%= f.text_area :content, required: true %></p>
-        <button type="submit">Add</button>
+        <p><%= f.text_area :content, required: true, class: 'itemBox form-control' %></p>
+        <button type="submit" class="btn btn-sm btn-primary">Add</button>
       <% end %>
 <br>
 
-<a href="#" class="buttons link-sort-list asc">Equipment:</a>
-  <ul id="sort-list">
+  <h3>Equipment:</h3>
+  <div id="submitted-items">
     <% @project.items.each do |item| %>
-      <li><%= link_to "#{item.content}", project_item_path(@project, item) %></li>
+    <div class="well well-white" id="item-<%= item.id %>">
+      <strong class="itemUserEmail"><%= item.user.email %></strong> says: <span class="itemContent"><%= item.content %></span>
+    </div>
     <% end %>
-  </ul>
+  </div>
+
 
   <%= link_to "All Items", project_items_path(@project, @item) %>
 
