@@ -20,16 +20,17 @@ $(document).ready(function () {
   });
 });
 
-
+//show locations
 
 $(document).ready(function () {
-  $("#locationBtn").on("click", function(event) {
-    event.preventDefault();
+  $("#locationBtn").on("click", function() {
     $.get("/locations.json", function(data) {
-      $("#locationIndex").text(data.name);
-      console.log(Object.getOwnPropertyNames(name))
-    })
+      for (let name of data) {
+        var locationName = name.name
+    $("#locationIndex").append('<ul>' + locationName + '</ul>');
+  }
   })
+})
 })
 
 
@@ -127,32 +128,32 @@ $('ul li:empty').remove();
 
 
 
-function Location(data) {
-  this.id = data.id
-  this.name = data.name
-}
+//function Location(data) {
+  //this.id = data.id
+  //this.name = data.name
+//}
 
-Location.prototype.showLocation = function() {
-  return Location.names
-}
+//Location.prototype.showLocation = function() {
+  //return Location.name
+//}
 
-$(function (){
-  $(".locationBtn")on("click", function(event){
-    event.preventDefault();
-    var $div = $(this);
-    var action = $div.map("action")
-    var params = $div.seralize();
-    $.ajax({
-      url: action,
-      data: params,
-      dataType: "json",
-      method: "POST"
-    })
-    .success(function(json){
-      location.showLocation()
-    })
-  })
-})
+//$(function (){
+  //$(".locationBtn")on("click", function(event){
+    //event.preventDefault();
+    //var $div = $(this);
+    //var action = $div.map("action")
+    //var params = $div.seralize();
+    //$.ajax({
+      //url: action,
+      //data: params,
+      //dataType: "json",
+      //method: "POST"
+  //  })
+    //.success(function(json){
+      //location.showLocation()
+  //  })
+//  })
+//})
 
 
 
