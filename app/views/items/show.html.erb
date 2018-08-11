@@ -1,21 +1,11 @@
 <div class="container">
   <div class="right">
 
-        <p>Equipment: <span class="itemContent"><%=@item.content%></span></p>
-<br>
-
-
-
-  <p><strong>Necessary Equipment:</strong></p>
-    <%= form_for @item, url: project_item_path(@project, @item)  do |f| %>
-
-      <p><%= f.text_field :content %></p>
-      <button type="update">Edit Equipment</button>
-    <% end %><br>
-
-
-
-<br>
-
-</div>
+    <p>Equipment: <span class="itemContent"><%=@item.content%></span></p><br>
+      <p><strong>Necessary Equipment:</strong></p>
+        <%= form_for @item, url: project_item_path(@project, @item)  do |f| %>
+          <p><%= f.text_field :content %></p>
+          <button type="update">Edit Equipment</button>
+        <% end %><br><br>
+    </div>
 </div>

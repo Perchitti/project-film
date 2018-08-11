@@ -1,19 +1,19 @@
 PROJECT #INDEX PAGE
 <div class="container">
   <div class="right">
-<p class="btn btn-secondary">Show Locations</p>
-<% @projects.each do |project| %>
-    <h5><strong><li><%= link_to project.title, project_path(project) %></strong></h5>
-        <span class="locationAddress<%= project.id %>"></span>
+
+    <p class="btn btn-secondary">Show Locations</p>
+      <% @projects.each do |project| %>
+        <h5><strong><li><%= link_to project.title, project_path(project) %></strong></h5>
+          <span class="locationAddress<%= project.id %>"></span>
           <br>
           <a href="#" class="js-more" onclick="this.style.visibility='hidden'" data-id="<%= project.id %>">More</a>
-      <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li>
+          <%= button_to 'Delete', project_path(project), method: :delete, data: { confirm: "Are you sure?"} %></li>
         <br>
     <% end %>
 
 
 <div id="locationIndex">
-
   <button id="locationBtn">Click</button>
 </div>
 

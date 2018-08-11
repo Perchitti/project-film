@@ -1,35 +1,35 @@
 
 
 <%= form_for(@project) do |f| %>
-<div class="fields">
-<%= f.label :title %>
-<%= f.text_field :title, class: 'form-control' %>
-</div>
-<br>
-<div class="fields">
-<%= f.label :description %>
-<%= f.text_field :description, class: 'form-control' %>
-</div>
-<br>
-<div class="fields">
-<%= f.label :studio %>
-<%= f.text_field :studio, class: 'form-control' %>
-</div>
-<br>
-<div class="fields">
-<%= f.fields_for :location_attributes do |t| %>
-  <%= t.label :production_company %>
-  <%= t.text_field :name, class: 'form-control' %>
-  </div>
-<br>
-<div class="fields">
-  <%= t.label :address %>
-  <%= t.text_field :address, class: 'form-control' %>
+  <div class="fields">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
   <br>
-<% end %>
-  <div class="actions">
-<%= f.submit "Add Project", class: "btn btn-primary"  %>
-</div>
+  <div class="fields">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="fields">
+    <%= f.label :studio %>
+    <%= f.text_field :studio, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="fields">
+    <%= f.fields_for :location_attributes do |t| %>
+    <%= t.label :production_company %>
+    <%= t.text_field :name, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="fields">
+    <%= t.label :address %>
+    <%= t.text_field :address, class: 'form-control' %>
+  </div>
+  <br>
+  <% end %>
 
+  <div class="actions">
+    <%= f.submit "Add Project", class: "btn btn-primary"  %>
+  </div>
 <% end %>
