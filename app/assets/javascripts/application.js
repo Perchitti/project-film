@@ -26,7 +26,8 @@ $(document).ready(function () {
   $("#locationBtn").on("click", function(event) {
     event.preventDefault();
     $.get("/locations.json", function(data) {
-      $("#locationIndex").text(data['name'])
+      $("#locationIndex").text(data.name);
+      console.log(Object.getOwnPropertyNames(name))
     })
   })
 })
@@ -122,6 +123,48 @@ $(document).ready(function(){
 $(document).ready(function() {
 $('ul li:empty').remove();
 })
+
+
+
+
+function Location(data) {
+  this.id = data.id
+  this.name = data.name
+}
+
+Location.prototype.showLocation = function() {
+  return Location.names
+}
+
+$(function (){
+  $(".locationBtn")on("click", function(event){
+    event.preventDefault();
+    var $div = $(this);
+    var action = $div.map("action")
+    var params = $div.seralize();
+    $.ajax({
+      url: action,
+      data: params,
+      dataType: "json",
+      method: "POST"
+    })
+    .success(function(json){
+      location.showLocation()
+    })
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+
 
 // addLocation and Remove
     function addItem(){
