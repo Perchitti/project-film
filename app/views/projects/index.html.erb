@@ -2,7 +2,9 @@ PROJECT #INDEX PAGE
 <div class="container">
   <div class="right">
 
-    <p class="btn btn-secondary">Show Locations</p>
+    <div id="locationIndex">
+      <button class="btn btn-secondary" id="locationBtn">Locations</button>
+    </div>
       <% @projects.each do |project| %>
         <h5><strong><li><%= link_to project.title, project_path(project) %></strong></h5>
           <span class="locationAddress<%= project.id %>"></span>
@@ -12,50 +14,11 @@ PROJECT #INDEX PAGE
         <br>
     <% end %>
 
+<br>
+<br>
 
-<div id="locationIndex">
-  <button id="locationBtn">Click</button>
-</div>
 
 
 
   </div>
 </div>
-
-
-function Locations(data) {
-  this.id = data.id
-  this.name = data.name
-}
-
-Locations.prototype.showLocation = function() {
-  return this.name
-}
-
-$(function (){
-  $(.locationIndex)on("submit", function(event){
-    event.preventDefault();
-    var $div = $(this);
-    var action = $div.attr("action")
-    var params = $div.seralize();
-    $.ajax({
-      url: action,
-      data: params,
-      dataType: "json",
-      method: "POST"
-    })
-    .success(function(json){
-      var name = Locations(json);
-      location.showLocation()
-    })
-  })
-})
-
-let Location = function(name) {
-  this.name = name;
-  this.getName = function(){
-    return this.name;
-  }
-}
-
-let newLocation  = new Location('NYC')
