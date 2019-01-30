@@ -1,55 +1,35 @@
+
+
 <%= form_for(@project) do |f| %>
-<div class="field">
-<%= f.label :title %>
-<%= f.text_field :title %>
-</div>
-<br>
-<div class="field">
-<%= f.label :description %>
-<%= f.text_field :description %>
-</div>
-<br>
-<div class="field">
-<%= f.label :studio %>
-<%= f.text_field :studio %>
-</div>
-<br>
-<div class="field">
-<%= f.fields_for :location_attributes do |t| %>
-  <%= t.label :production_company %>
-  <%= t.text_field :name %>
+  <div class="fields">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control' %>
   </div>
-<br>
-<div class="field">
-  <%= t.label :address %>
-  <%= t.text_field :address %>
+  <br>
+  <div class="fields">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
   </div>
-<% end %>
+  <br>
+  <div class="fields">
+    <%= f.label :studio %>
+    <%= f.text_field :studio, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="fields">
+    <%= f.fields_for :location_attributes do |t| %>
+    <%= t.label :production_company %>
+    <%= t.text_field :name, class: 'form-control' %>
+  </div>
+  <br>
+  <div class="fields">
+    <%= t.label :address %>
+    <%= t.text_field :address, class: 'form-control' %>
+  </div>
+  <br>
+  <% end %>
+
   <div class="actions">
-<%= f.submit "Add Project" %>
-</div>
-
+    <%= f.submit "Add Project", class: "btn btn-primary"  %>
+  </div>
 <% end %>
-
-<div id="projectResult">
-  <h2 id="projectTitle"></h2>
-  <p id="projectDescription"></p>
-</div>
-
-<script type="text/javascript" charset="utf-8">
-  $(function () {
-    $('form').submit(function(event) {
-      event.preventDefault();
-
-      var values = $(this).serialize();
-
-      var posting = $.post('/projects', values);
-
-      posting.done(function(data) {
-        var project = data;
-        $("#projectTitle").text(project["title"]);
-        $("#projectDescription").text(project["description"]);
-      });
-    });
-  });
-</script>

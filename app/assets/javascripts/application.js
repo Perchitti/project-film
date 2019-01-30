@@ -1,15 +1,4 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
+
 //= require jquery
 //= require jquery_ujs
 //= require activestorage
@@ -18,42 +7,53 @@
 //= require_tree .
 
 
-// More button on welcome page
+// show each location related to the project when clicking "more"
+
+$(document).ready(function () {
+  $(".js-more").on("click", function(event) {
+    event.preventDefault();
+    var nextId = this.dataset.id;
+    $.get("/projects/" + nextId + ".json", function(data) {
+      $(".locationAddress" + nextId).text(data["location"]["address"]);
+
+    });
+  });
+});
+
+//show locations
+
+$(document).ready(function () {
+  $("#locationBtn").on("click", function() {
+    $.get("/locations.json", function(data) {
+      for (let name of data) {
+        var locationName = name.name
+    $("#locationIndex").append('<ul>' + locationName + '</ul>');
+  }
+  })
+})
+})
+
+
+// hide item on click (used as a checklist)
+$(function() {
+$(".itemContent").click(function() {
+  $( this ).slideUp();
+});
+})
+
+// More button on welcome page, hide more once clicked
 
 $(document).ready(function() {
           $('#readmore').click(function() {
-
               $(this).prev('.answer').slideToggle(500);
-              $(this).toggleClass('close');
-
           });
       });
 
-
-// A-Z items when clicking "Equipment"
-
-$(document).ready(function() {
-    $('.link-sort-list').click(function(e) {
-        var $sort = this;
-        var $list = $('#sort-list');
-        var $listLi = $('li',$list);
-        $listLi.sort(function(a, b){
-            var keyA = $(a).text().toLowerCase();
-            var keyB = $(b).text().toLowerCase();
-            if($($sort).hasClass('asc')){
-                return (keyA > keyB) ? 1 : 0;
-            } else {
-                return (keyA < keyB) ? 1 : 0;
-            }
-        });
-        $.each($listLi, function(index, row){
-            $list.append(row);
-        });
-        e.preventDefault();
-    });
-});
-
-
+      $(document).ready(function(){
+         $("#readmore").on("click", function(){
+             $("#readmore").hide();
+           })
+          })
 
 
 // Next.. button on project-show page
@@ -68,7 +68,7 @@ $(document).ready(function () {
       $(".projectStudio").text(data["studio"]);
       $(".locationName").text(data["location"]["name"]);
       $(".locationAddress").text(data["location"]["address"]);
-      // re-set the id to current on the link
+
       $(".js-next").attr("data-id", data["id"]);
     });
   });
@@ -78,23 +78,94 @@ $(document).ready(function () {
 
 $(document).ready(function(){
     $(".js-next").on("click", function(){
-        $("div.myDIV").hide();
+      $("div.myDIV").hide();
     });
 });
 
-// hide more button once clicked on project/index page
 
-// $(document).ready(function(){
-  //  $(".js-more").on("click", function(){
-    //    $("#btn").hide();
-    //  })
-    // })
+  // Add item to form. Json renders shows item and email of user.
+      function Item(data) {
+        this.id = data.id;
+        this.content = data.content;
+        this.user = data.user;
+      }
 
+
+
+      Item.prototype.showDisplay = function() {
+        var html = "" ;
+        html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " | " + this.content + "</div>";
+        $("#submitted-items").append(html);
+      }
+
+      $(function() {
+        $("form#new_item").on("submit", function(event) {
+          event.preventDefault();
+          var $form = $(this);
+          var action = $form.attr("action");
+          // item(form input), converted from an object => string.
+          var params = $form.serialize();
+          $.ajax({
+            url: action,
+            data: params,
+            dataType: "json",
+            method: "POST"
+          })
+          .success(function(json) {
+          $(".itemBox").val("");
+            var item = new Item(json);
+            item.showDisplay();
+
+          })
+        })
+      })
 
 // remove any empty items (validation now put in to prevent this)
 $(document).ready(function() {
 $('ul li:empty').remove();
 })
+
+
+
+
+//function Location(data) {
+  //this.id = data.id
+  //this.name = data.name
+//}
+
+//Location.prototype.showLocation = function() {
+  //return Location.name
+//}
+
+//$(function (){
+  //$(".locationBtn")on("click", function(event){
+    //event.preventDefault();
+    //var $div = $(this);
+    //var action = $div.map("action")
+    //var params = $div.seralize();
+    //$.ajax({
+      //url: action,
+      //data: params,
+      //dataType: "json",
+      //method: "POST"
+  //  })
+    //.success(function(json){
+      //location.showLocation()
+  //  })
+//  })
+//})
+
+
+
+
+
+
+
+
+
+
+
+
 
 // addLocation and Remove
     function addItem(){
@@ -116,16 +187,17 @@ $('ul li:empty').remove();
 
     //More button Projects index Page
     $(document).ready(function () {
-    $(".projectsExpand").on('click', '.js-more', function(e) {
+    $("div.projectsExpand").on('click', 'a.js-more', function(e) {
         e.preventDefault();
-        var id = this.dataset.id;
+        var id = this.dataset.id
         $.get("/projects/" + id + ".json", function(data) {
-          $("#locationAddress").text(data["location"]["name"])
+          $("#projectDescription-" + id).text(data["description"])
         });
       });
     })
 
 
+<<<<<<< HEAD
     function Item(data) {
       this.id = data.id;
       this.content = data.content;
@@ -136,7 +208,7 @@ $('ul li:empty').remove();
 
     Item.prototype.renderDisplay = function() {
       var html = "" ;
-      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user.email + "</strong>" + " says: " + this.content + "</div>";
+      html += "<div class=\'well well-white\' id=\'item-\' + item.id + '\'>" +  "<strong>" + this.user + "</strong>" + " says: " + this.content + "</div>";
       $("#submitted-items").append(html);
     }
 
@@ -161,6 +233,30 @@ $('ul li:empty').remove();
         })
       })
     })
+=======
+    // A-Z items when clicking "Equipment"(not using)
+
+    $(document).ready(function() {
+        $('.link-sort-list').click(function(e) {
+            var $sort = this;
+            var $list = $('#sort-list');
+            var $listLi = $('li',$list);
+            $listLi.sort(function(a, b){
+                var keyA = $(a).text().toLowerCase();
+                var keyB = $(b).text().toLowerCase();
+                if($($sort).hasClass('asc')){
+                    return (keyA > keyB) ? 1 : 0;
+                } else {
+                    return (keyA < keyB) ? 1 : 0;
+                }
+            });
+            $.each($listLi, function(index, row){
+                $list.append(row);
+            });
+            e.preventDefault();
+        });
+    });
+>>>>>>> 0ef4776de194adc6ace7c26ac06f73096c7e35a2
 
 
 //var myArray = ['adam', 'bianca', 'cat', 'dennis'];

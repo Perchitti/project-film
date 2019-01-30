@@ -12,6 +12,10 @@
  *
  */
 
+ div#locationIndex {
+   float: right
+ }
+
 
  div.right {
      position: absolute;
@@ -35,5 +39,6 @@
 .answer {
   display: none;
 }
+
 
 @import "bootstrap";
