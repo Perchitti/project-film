@@ -197,7 +197,8 @@ $('ul li:empty').remove();
     })
 
 
-<<<<<<< HEAD
+
+
     function Item(data) {
       this.id = data.id;
       this.content = data.content;
@@ -233,7 +234,6 @@ $('ul li:empty').remove();
         })
       })
     })
-=======
     // A-Z items when clicking "Equipment"(not using)
 
     $(document).ready(function() {
@@ -256,7 +256,6 @@ $('ul li:empty').remove();
             e.preventDefault();
         });
     });
->>>>>>> 0ef4776de194adc6ace7c26ac06f73096c7e35a2
 
 
 //var myArray = ['adam', 'bianca', 'cat', 'dennis'];
