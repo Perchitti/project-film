@@ -1,10 +1,10 @@
 # Project Title
 
-ProjectBox - Rails App with a jQuery Front End Portfolio Project
+Project Film - Rails App with a jQuery Front End Portfolio Project
 
 ## Getting Started
 
-ProjectBox is a storage site for artists to keep track of their equipment needed for projects in progress.
+Project Film is a storage site for artists to keep track of their equipment needed for projects in progress.
 
 ### Prerequisites
 
