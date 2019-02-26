@@ -13,19 +13,17 @@ Terminal must have Ruby and Bundlr installed.
 ### ProjectBox Instructions
 
 Clone this repo in your terminal: <br>
-cd into project-film directory  <br>
+cd into project-film directory <br>
 Run bundle install to install gems <br>
 Run rake db:migrate <br>
 To start the server, run rails s <br>
 In your browser, go to https://localserver:3000
 
-
 ## Built With
 
-* [Ruby on Rails](https://rubyonrails.org/)
+- [Ruby on Rails](https://rubyonrails.org/)
 
-* [Facebook Oauth](https://developers.facebook.com/docs/facebook-login/web/)
-
+- [Facebook Oauth](https://developers.facebook.com/docs/facebook-login/web/)
 
 ## Versioning
 
@@ -33,7 +31,7 @@ Version 1.0
 
 ## Authors
 
-* **Lauren Perchitti** - *Initial work* - [Github](https://github.com/Perchitti)
+- **Lauren Perchitti** - _Initial work_ - [Github](https://github.com/Perchitti)
 
 ## License
 
@@ -41,6 +39,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
